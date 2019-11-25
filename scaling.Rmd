@@ -1,12 +1,12 @@
 ---
 title: "Scaling Up"
 output:
-  slidy_presentation:
-    highlight: haddock
   ioslides_presentation:
     highlight: haddock
     smaller: yes
     widescreen: yes
+  slidy_presentation:
+    highlight: haddock
 ---
 
 ```{r setup, include=FALSE}
@@ -73,42 +73,14 @@ _Going From 1 to N_
 - Con: If a tool normally comes with optional config files, those are now buried in ugly paths like `~/miniconda3/envs/hisat_env/share/trimmomatic-0.39-1/adapters`
 - Con: Frequently doesn't play nice with R/Bioconductor
 
-## Time
-- As you reduce your time interacting with software, it spends longer running without you present (both proportional and total hours)
-- Lots of tools listen to "hangup" signals from the Linux kernel `SIGHUP` that gets sent when you lose your ssh connection
-- So you need a way to not log out of a machine when you lose internet or close your laptop
-- Use `tmux` (or `screen`) to never lose a connection again
-
-
-## Terminal multiplexer (tmux)
-
-Before executing a script, invoke `tmux` to avoid hang ups killing your jobs
-
-````{bash, eval = FALSE, echo = TRUE}
-tmux
-myscript.sh
-# [log out by closing your terminal window, AND NOT by typing exit]
-```
-
-## More tmux usage
-
-When you log back in
-
-- Use `tmux ls` to list your sessions
-- Use `tmux a -t [Number]` to reattach to that session
-- Use `tmux detach -t [Number]` to detach a session and make it evaporate
-
-## Oh no, I forgot to tmux!
-
-No guarantees that the following will work, but it is worth a try if you haven't lost connection yet.
-
-- If the program is running in the foreground, CTRL+Z and then bg to background it
-- Check your list of running jobs with `jobs`
-- Use `disown -h` to remove the most recent job
-- Check if it was disowned with `jobs` and repeat `disown -h` as needed
+## Where to scale up?
+- Your existing machine, just more efficiently?
+- A big workstation?
+- A department server?
+- HPC clusters (pronghorn)?
+- Cloud services?
 
 ## Benchmarking (CPU, RAM, Disk)
-
 Where to start?
 
 - Look for documented benchmarks from the authors
@@ -118,13 +90,28 @@ Where to start?
   - Does it secretly use more? `Trimmomatic` often uses 1 more core than I tell it to.
   - Is there an effective limit to its scaling? If running a tool on 8 and 16 cores finishes in nearly the same amount of wall clock time, stick with 8 cores.
 
+## How many CPUs do I have?
+Determine how many cores a machine has with `top` and then hit `1`
+
+Mac OS's top doesn't have this, so pull the info with this command:
+`system_profiler SPHardwareDataType`
+
+## Time
+- As you reduce your time interacting with software, it spends longer running without you present (both proportional and total hours)
+- Lots of tools listen to "hangup" signals from the Linux kernel `SIGHUP` that gets sent when you lose your ssh connection
+- So you need a way to not log out of a machine when you lose internet or close your laptop
+- Use `tmux` (or `screen`) to never lose a connection again
+
+## Scaling up first steps: multitasking
+- Backgrounding
+- For loops
+- Rapid prototyping from explicit commands
+- A polling DIY scheduler
+
 ## Backgrounding
+Use the `&` operator to launch a task into the background and retain your ability to use the command line while it runs. If a program is "chatty," you may be blinded by it's STDOUT and/or STDERR messages, if you don't redirect those to file.
 
-Use the `&` operator to launch a task into the background and retain your ability to use the command line while it runs.
-
-If a program is "chatty," you may be blinded by it's STDOUT and/or STDERR messages, if you don't redirect those to file.
-
-Some choices in bash
+Some examples in bash:
 
 ```{bash, eval = FALSE, echo = TRUE}
 someProgram & # runs in bkg
@@ -132,29 +119,100 @@ someProgram >my.log & # runs in bkg, STDOUT sent to file
 someProgram &>my.log & # runs in bkg, STDERR & STDOUT both sent to file
 ```
 
-## Rapidly prototype a loop from your history (pt 1)
-## Rapidly prototype a loop from your history (pt 2)
-## Rapidly prototype a loop from your history (pt 3)
+## For loops in bash
 
+in bash, `for` loops follow this general form
 
-## Loops with hard-coded parallelization
-Determine how many cores a machine has with `top` and then hit `1`
+```{bash, eval = FALSE, echo = TRUE}
+for input in a b c d e f
+do
+  something
+  something_else
+done
+```
 
+## Rapid prototyping with for loops
+Quickly go from
 
-## Loops with (iffy) parallelization by polling
+- [Explicit commands](https://github.com/rltillett/scaling-up/blob/master/rapid_prototype_explicit_cmds.sh) that ran on one of many sample (from `history`) to
+- [A for loop for each of your samples](https://github.com/rltillett/scaling-up/blob/master/rapid_prototype_by_prefix.sh), based directly on it
+- using `nano` and the former to make the latter
 
+## For loops an parallelism?
 
+- So, can we do more than one task at a time in a `for` loop with just `&`
+- Let's explore this
 
-## Where?
+We'll next make a safe "something" to do that we can test for loops and parallel execution without taxing our computers much
+
+## Making a safe thing for a for loop to "do"
+And let's build a shell_script that just runs `sleep` to view how loops stack or don't.
+```{bash, eval = FALSE, echo = TRUE}
+mkdir testing_loops
+cd testing_loops
+nano sleepscript.sh
+```
+
+And add these two lines.
+
+```{bash, eval = FALSE, echo = TRUE}
+#!/bin/bash
+sleep 1m
+```
+
+Don't forget to `chmod +x sleepscript.sh`
+
+## For loops on patterns of "inputs" 
+Let's prep a folder for the task with dummy input files
+```{bash, eval = FALSE, echo = TRUE}
+touch A{A..M}_R{1,2}.fastq
+ls
+```
+
+then we build some for loops based off of the patterns and find two parallel problems (live demos)
+ - demo 1. no backgrounding
+ - demo 2. using `&` inside the loop
+
+## Loops with (iffy) parallel scheduling by polling
+- [An example from an interproscan script](https://github.com/rltillett/scaling-up/blob/master/polling_interpro_loop.sh) I recently wrote & used
+- Let's examine it
+- real schedulers (like HPC have) are preferable, but this kludge does and will work.
+
+## Staying connected w/ terminal multiplexer (tmux)
+Before executing a script, invoke `tmux` to avoid hang ups killing your jobs
+
+````{bash, eval = FALSE, echo = TRUE}
+tmux
+some_script.sh
+# [log out by closing your terminal window, AND NOT by typing exit]
+```
+
+## More tmux usage
+When you log back in
+
+- Use `tmux ls` to list your sessions
+- Use `tmux a -t [Number]` to reattach to that session
+- Use `tmux detach -t [Number]` to detach a session and make it evaporate
+
+## Oh no, I forgot to tmux!
+No guarantees that the following will work, but it is worth a try if you haven't lost connection yet.
+
+- If the program is running in the foreground, CTRL+Z and then bg to background it
+- Check your list of running jobs with `jobs`
+- Use `disown -h` to remove the most recent job
+- Check if it was disowned with `jobs` and repeat `disown -h` as needed
+
+## (Repeat) Where to scale up?
+- Your existing machine, just more efficiently?
 - A big workstation?
-- A departmental server?
+- A department server?
 - HPC clusters (pronghorn)?
 - Cloud services?
 
-## Added issues
-Installing software
-Costs
 
+## Added issues on any new system
+- Installing software
+- Costs?
 
 ## Beefy workstations
 - Likely good RAM, disk, and OK CPU count
@@ -164,33 +222,46 @@ Costs
 - (Pro? or Con?) it might be a Mac
 - Connectivity issues (either "at all" or off-campus access a challenge)
 
+## A department server
+- You won't get `sudo`
+- Unless a job queue is enabled, users may frequently impact one another
+- Use `conda` always
 
-## HPC systems(like Pronghorn)
+## HPC systems
+- Systems like Pronghorn (UNR) & XSEDE (NSF, must apply)
 - Huge potential for scaling
 - Waiting in lines?
 - Job schedulers add complexity and indirectness
-- Bad for prototyping
+- Bad for prototyping (due to job queue)
 - You will never get `sudo`
+- Use `conda` or containers
+
+## HPC systems
+- A few looks at pronghorn and the SLURM job scheduler
+- 
 
 ## Cloud computing
 - Free ones
   - CyVerse (NSF)
-  - (NSF)
-  - ()
+  - Jetstream (NSF, must apply)
   - Amazon AWS (free tier only)
 - `$$$` ones
   - Amazon AWS
   - Google Cloud
   - Others...
-  
-## Workflow management systems
-- make
-- snakemake
-- bcbio
+- You will get `sudo`
+- Still, use `conda` or containers
 
+## Workflow management systems
+- Makefiles
+  - compact syntax may be difficult to mentally parse
+- Snakemake
+- bcbio
+  - complexity
+  
 ## Containers
-Docker (Cloud)
-Singularity (Cloud & Pronghorn)
+- Docker (Cloud)
+- Singularity (Cloud & Pronghorn)
 
 ## Testing and Deploying
 
