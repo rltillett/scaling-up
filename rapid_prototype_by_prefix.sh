@@ -19,9 +19,9 @@ do
 
   # bwa command here
   # bwa mem -t 2 \
-..# /ref_genome/ecoli_rel606.fasta \
+  # ../ref_genome/ecoli_rel606.fasta \
   # SRR2589044_1.trim.fastq.gz SRR2589044_2.trim.fastq.gz > SRR2589044.sam
   bwa mem -t 2 \
-../ref_genome/ecoli_rel606.fasta \
+  ../ref_genome/ecoli_rel606.fasta \
   ${prefix}_1.trim.fastq.gz ${prefix}_2.trim.fastq.gz > ${prefix}.sam
 done
