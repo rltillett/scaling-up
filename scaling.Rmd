@@ -1,0 +1,200 @@
+---
+title: "Scaling Up"
+output:
+  slidy_presentation:
+    highlight: haddock
+  ioslides_presentation:
+    highlight: haddock
+    smaller: yes
+    widescreen: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Scaling up
+or
+_Going From 1 to N_
+
+## Scaling up
+- Doing bioinformatics can mean having **lots** of problems
+- it might even be inherent to the whole undertaking
+- bioinformatics often means having lots of **_______**
+
+## We have lots of 
+- Raw data
+- Tools to transform the data
+- Dimensions to consider as we try to scale
+
+## An example
+- I have 24 paired-end RNA-seq samples in one experiment
+- I need to
+  - QC 
+  - Trimming and More QC
+  - Alignment and More QC
+  - Gene counting
+  - Differential expression analysis
+- How do I do the same things to each sample?
+- How do I input and run all 24x7 commands efficiently?
+```{r, echo=TRUE}
+24*7
+```
+
+## Some dimensions to consider
+- Reproducibility
+- Software stack
+- Where at?
+- CPUs + CPU hours
+- Memory (RAM)
+- Disk + I/O performance
+- Data transfer
+- Time + Your time
+
+
+## Reproducibility and repeatability
+- Write it down!
+- Low on time? write your history out to a log
+- `history > projectName_Date.log`
+- Save commands as scripts
+- Comment your code for yourself, if for no one else
+
+## Control your software stack
+- Know the versions of every tool you use. You'll need them for your methods sections.
+- Use version control and Github
+- Use Conda (Miniconda) to install bioinformatics tools and fully control the versions you install. 
+  - See my [Conda notes](https://github.com/rltillett/conda_notes) to get started with Conda
+
+## Conda pros and cons
+- Pro: Install (almost) anything (almost) anywhere. No `sudo` privleiges required.
+- Pro: Install exact specific versions of tools.
+- Pro: Isolate packages with nasty dependency conflicts into their own environments (e.g. InterproScan)
+- Con: Some java tools get renamed by the volunteer who integrated them into conda, making for slight mismatch with official documentation (e.g. trimmomatic)
+- Con: If a tool normally comes with optional config files, those are now buried in ugly paths like `~/miniconda3/envs/hisat_env/share/trimmomatic-0.39-1/adapters`
+- Con: Frequently doesn't play nice with R/Bioconductor
+
+## Time
+- As you reduce your time interacting with software, it spends longer running without you present (both proportional and total hours)
+- Lots of tools listen to "hangup" signals from the Linux kernel `SIGHUP` that gets sent when you lose your ssh connection
+- So you need a way to not log out of a machine when you lose internet or close your laptop
+- Use `tmux` (or `screen`) to never lose a connection again
+
+
+## Terminal multiplexer (tmux)
+
+Before executing a script, invoke `tmux` to avoid hang ups killing your jobs
+
+````{bash, eval = FALSE, echo = TRUE}
+tmux
+myscript.sh
+# [log out by closing your terminal window, AND NOT by typing exit]
+```
+
+## More tmux usage
+
+When you log back in
+
+- Use `tmux ls` to list your sessions
+- Use `tmux a -t [Number]` to reattach to that session
+- Use `tmux detach -t [Number]` to detach a session and make it evaporate
+
+## Oh no, I forgot to tmux!
+
+No guarantees that the following will work, but it is worth a try if you haven't lost connection yet.
+
+- If the program is running in the foreground, CTRL+Z and then bg to background it
+- Check your list of running jobs with `jobs`
+- Use `disown -h` to remove the most recent job
+- Check if it was disowned with `jobs` and repeat `disown -h` as needed
+
+## Benchmarking (CPU, RAM, Disk)
+
+Where to start?
+
+- Look for documented benchmarks from the authors
+- Does your tool have its own internal threading settings?
+- Monitor your tool's performance
+  - Does it actually use all the cores you give it?
+  - Does it secretly use more? `Trimmomatic` often uses 1 more core than I tell it to.
+  - Is there an effective limit to its scaling? If running a tool on 8 and 16 cores finishes in nearly the same amount of wall clock time, stick with 8 cores.
+
+## Backgrounding
+
+Use the `&` operator to launch a task into the background and retain your ability to use the command line while it runs.
+
+If a program is "chatty," you may be blinded by it's STDOUT and/or STDERR messages, if you don't redirect those to file.
+
+Some choices in bash
+
+```{bash, eval = FALSE, echo = TRUE}
+someProgram & # runs in bkg
+someProgram >my.log & # runs in bkg, STDOUT sent to file
+someProgram &>my.log & # runs in bkg, STDERR & STDOUT both sent to file
+```
+
+## Rapidly prototype a loop from your history (pt 1)
+## Rapidly prototype a loop from your history (pt 2)
+## Rapidly prototype a loop from your history (pt 3)
+
+
+## Loops with hard-coded parallelization
+Determine how many cores a machine has with `top` and then hit `1`
+
+
+## Loops with (iffy) parallelization by polling
+
+
+
+## Where?
+- A big workstation?
+- A departmental server?
+- HPC clusters (pronghorn)?
+- Cloud services?
+
+## Added issues
+Installing software
+Costs
+
+
+## Beefy workstations
+- Likely good RAM, disk, and OK CPU count
+  - Certainly better than a laptop
+- You can ask for sudo privlieges
+- If you break it, what else is lost, though?
+- (Pro? or Con?) it might be a Mac
+- Connectivity issues (either "at all" or off-campus access a challenge)
+
+
+## HPC systems(like Pronghorn)
+- Huge potential for scaling
+- Waiting in lines?
+- Job schedulers add complexity and indirectness
+- Bad for prototyping
+- You will never get `sudo`
+
+## Cloud computing
+- Free ones
+  - CyVerse (NSF)
+  - (NSF)
+  - ()
+  - Amazon AWS (free tier only)
+- `$$$` ones
+  - Amazon AWS
+  - Google Cloud
+  - Others...
+  
+## Workflow management systems
+- make
+- snakemake
+- bcbio
+
+## Containers
+Docker (Cloud)
+Singularity (Cloud & Pronghorn)
+
+## Testing and Deploying
+
+
+
+
+
