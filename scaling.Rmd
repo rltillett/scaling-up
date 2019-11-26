@@ -271,6 +271,8 @@ No guarantees that the following will work, but it is worth a try if you haven't
   - [see this example](http://www.bioinformaticszen.com/post/makefiles/) 
 - [Snakemake](https://snakemake.readthedocs.io/en/stable/)
   - Moving as much as I can into snakemake is my next major target.
+  - It follows python rules, which some may find intuitive.
+  - [HPC Carpentries' tutorial begins here](https://hpc-carpentry.github.io/hpc-python/06-parallel/)
 - [bcbio](https://bcbio-nextgen.readthedocs.io/en/latest/)
   - Has a sense of complexity to it, but is interesting and looks powerful
   
