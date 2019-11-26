@@ -133,12 +133,12 @@ done
 ```
 
 ## Rapid prototyping with for loops
-Quickly go from
+You can pretty quickly go from
 
 - [Explicit commands](https://github.com/rltillett/scaling-up/blob/master/rapid_prototype_explicit_cmds.sh) that ran on one of many sample (from `history`) to
 - [A for loop for each of your samples](https://github.com/rltillett/scaling-up/blob/master/rapid_prototype_by_prefix.sh), based directly on it
-- using `nano` and the former to make the latter
-
+- using `nano` and the former to generate the latter
+- let's take a look and define the moving parts
 ## For loops an parallelism?
 
 - So, can we do more than one task at a time in a `for` loop with just `&`
