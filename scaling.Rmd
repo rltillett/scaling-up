@@ -1,9 +1,10 @@
 ---
 title: "Scaling Up"
+author: "Richard L Tillett"
+date: "11/25/2019"
 output:
-  ioslides_presentation:
+  ioslides_presentation: 
     highlight: haddock
-    smaller: yes
     widescreen: yes
   slidy_presentation:
     highlight: haddock
@@ -170,13 +171,17 @@ ls
 ```
 
 then we build some for loops based off of the patterns and find two parallel problems (live demos)
- - demo 1. no backgrounding
- - demo 2. using `&` inside the loop
+
+- demo 1. no backgrounding
+- demo 2. using `&` inside the loop. what happens?
 
 ## Loops with (iffy) parallel scheduling by polling
 - [An example from an interproscan script](https://github.com/rltillett/scaling-up/blob/master/polling_interpro_loop.sh) I recently wrote & used
 - Let's examine it
+- the inner `while` loop is doing the heavy lifting here
 - real schedulers (like HPC have) are preferable, but this kludge does and will work.
+- let's adapt it. (back to our terminals again)
+
 
 ## Staying connected w/ terminal multiplexer (tmux)
 Before executing a script, invoke `tmux` to avoid hang ups killing your jobs
@@ -238,34 +243,47 @@ No guarantees that the following will work, but it is worth a try if you haven't
 
 ## HPC systems
 - A few looks at pronghorn and the SLURM job scheduler
-- 
+- [A different slideshow as pdf](https://github.com/rltillett/scaling-up/blob/master/UNR%20HPC%20resources%20for%20life%20scientists.pdf)
+- Q. What makes HPC different than other systems?
+  - The job queue. Pronghorn's is called SLURM
+  
+## HPC job queues
+- `srun` and `sbatch` are how you ask permission to run things
+- Two scripts to do the job of one (yeah, I know)
+- [A launcher script](https://github.com/rltillett/scaling-up/blob/master/trimgalore_dir.sh)
+- [A worker script](https://github.com/rltillett/scaling-up/blob/master/trimgalore_worker.sh)
+- a look at pronghorn
 
 ## Cloud computing
 - Free ones
-  - CyVerse (NSF)
+  - [CyVerse Atmosphere, NSF]()
   - Jetstream (NSF, must apply)
   - Amazon AWS (free tier only)
 - `$$$` ones
-  - Amazon AWS
-  - Google Cloud
-  - Others...
+  - Amazon AWS, Google Cloud, Others...
 - You will get `sudo`
+- You essentially get a bunch of VMs
 - Still, use `conda` or containers
 
 ## Workflow management systems
 - Makefiles
   - compact syntax may be difficult to mentally parse
-- Snakemake
-- bcbio
-  - complexity
+  - [see this example](http://www.bioinformaticszen.com/post/makefiles/) 
+- [Snakemake](https://snakemake.readthedocs.io/en/stable/)
+  - Moving as much as I can into snakemake is my next major target.
+- [bcbio](https://bcbio-nextgen.readthedocs.io/en/latest/)
+  - Has a sense of complexity to it, but is interesting and looks powerful
   
 ## Containers
 - Docker (Cloud)
+  - you must have root to build AND run docker images
+  - This is generally true on the cloud, though
+  - Many many images on [DockerHub](https://hub.docker.com)
 - Singularity (Cloud & Pronghorn)
+  - root only needed for build and some subsystems
+  - Provided the subsystems, you can run anything. Custom or from [Singularity-Hub.org](https://singularity-hub.org)
+- Orchestration of containers is Very High Level automation, and a bit out of our scope...
 
-## Testing and Deploying
+## Thank you
 
-
-
-
-
+Questions?

@@ -9,6 +9,7 @@
 
 
 
+  <meta name="date" content="2019-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,6 +29,14 @@
 
       // Author information
       presenters: [
+            {
+        name:  'Richard L Tillett' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
             ]
     };
   </script>
@@ -3107,14 +3116,15 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">11/25/2019</p>
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Scaling up</h2></hgroup><article  id="scaling-up" class="smaller ">
+<slide class=""><hgroup><h2>Scaling up</h2></hgroup><article  id="scaling-up">
 
 <p>or <em>Going From 1 to N</em></p>
 
-</article></slide><slide class=""><hgroup><h2>Scaling up</h2></hgroup><article  id="scaling-up-1" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Scaling up</h2></hgroup><article  id="scaling-up-1">
 
 <ul>
 <li>Doing bioinformatics can mean having <strong>lots</strong> of problems</li>
@@ -3122,7 +3132,7 @@ slide:not(.current) .plotly.html-widget{
 <li>bioinformatics often means having lots of <strong>_______</strong></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>We have lots of</h2></hgroup><article  id="we-have-lots-of" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>We have lots of</h2></hgroup><article  id="we-have-lots-of">
 
 <ul>
 <li>Raw data</li>
@@ -3130,7 +3140,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Dimensions to consider as we try to scale</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>An example</h2></hgroup><article  id="an-example" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>An example</h2></hgroup><article  id="an-example">
 
 <ul>
 <li>I have 24 paired-end RNA-seq samples in one experiment</li>
@@ -3151,7 +3161,7 @@ slide:not(.current) .plotly.html-widget{
 
 <pre >## [1] 168</pre>
 
-</article></slide><slide class=""><hgroup><h2>Some dimensions to consider</h2></hgroup><article  id="some-dimensions-to-consider" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Some dimensions to consider</h2></hgroup><article  id="some-dimensions-to-consider">
 
 <ul>
 <li>Reproducibility</li>
@@ -3164,7 +3174,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Time + Your time</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Reproducibility and repeatability</h2></hgroup><article  id="reproducibility-and-repeatability" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Reproducibility and repeatability</h2></hgroup><article  id="reproducibility-and-repeatability">
 
 <ul>
 <li>Write it down!</li>
@@ -3174,7 +3184,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Comment your code for yourself, if for no one else</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Control your software stack</h2></hgroup><article  id="control-your-software-stack" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Control your software stack</h2></hgroup><article  id="control-your-software-stack">
 
 <ul>
 <li>Know the versions of every tool you use. You’ll need them for your methods sections.</li>
@@ -3186,7 +3196,7 @@ slide:not(.current) .plotly.html-widget{
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Conda pros and cons</h2></hgroup><article  id="conda-pros-and-cons" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Conda pros and cons</h2></hgroup><article  id="conda-pros-and-cons">
 
 <ul>
 <li>Pro: Install (almost) anything (almost) anywhere. No <code>sudo</code> privleiges required.</li>
@@ -3197,7 +3207,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Con: Frequently doesn’t play nice with R/Bioconductor</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Where to scale up?</h2></hgroup><article  id="where-to-scale-up" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Where to scale up?</h2></hgroup><article  id="where-to-scale-up">
 
 <ul>
 <li>Your existing machine, just more efficiently?</li>
@@ -3207,7 +3217,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Cloud services?</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Benchmarking (CPU, RAM, Disk)</h2></hgroup><article  id="benchmarking-cpu-ram-disk" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Benchmarking (CPU, RAM, Disk)</h2></hgroup><article  id="benchmarking-cpu-ram-disk">
 
 <p>Where to start?</p>
 
@@ -3223,13 +3233,13 @@ slide:not(.current) .plotly.html-widget{
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>How many CPUs do I have?</h2></hgroup><article  id="how-many-cpus-do-i-have" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>How many CPUs do I have?</h2></hgroup><article  id="how-many-cpus-do-i-have">
 
 <p>Determine how many cores a machine has with <code>top</code> and then hit <code>1</code></p>
 
 <p>Mac OS’s top doesn’t have this, so pull the info with this command: <code>system_profiler SPHardwareDataType</code></p>
 
-</article></slide><slide class=""><hgroup><h2>Time</h2></hgroup><article  id="time" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Time</h2></hgroup><article  id="time">
 
 <ul>
 <li>As you reduce your time interacting with software, it spends longer running without you present (both proportional and total hours)</li>
@@ -3238,7 +3248,7 @@ slide:not(.current) .plotly.html-widget{
 <li>Use <code>tmux</code> (or <code>screen</code>) to never lose a connection again</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Scaling up first steps: multitasking</h2></hgroup><article  id="scaling-up-first-steps-multitasking" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Scaling up first steps: multitasking</h2></hgroup><article  id="scaling-up-first-steps-multitasking">
 
 <ul>
 <li>Backgrounding</li>
@@ -3247,7 +3257,7 @@ slide:not(.current) .plotly.html-widget{
 <li>A polling DIY scheduler</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Backgrounding</h2></hgroup><article  id="backgrounding" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Backgrounding</h2></hgroup><article  id="backgrounding">
 
 <p>Use the <code>&amp;</code> operator to launch a task into the background and retain your ability to use the command line while it runs. If a program is &ldquo;chatty,&rdquo; you may be blinded by it’s STDOUT and/or STDERR messages, if you don’t redirect those to file.</p>
 
@@ -3257,7 +3267,7 @@ slide:not(.current) .plotly.html-widget{
 someProgram &gt;my.log &amp; # runs in bkg, STDOUT sent to file
 someProgram &amp;&gt;my.log &amp; # runs in bkg, STDERR &amp; STDOUT both sent to file</pre>
 
-</article></slide><slide class=""><hgroup><h2>For loops in bash</h2></hgroup><article  id="for-loops-in-bash" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>For loops in bash</h2></hgroup><article  id="for-loops-in-bash">
 
 <p>in bash, <code>for</code> loops follow this general form</p>
 
@@ -3267,7 +3277,7 @@ do
   something_else
 done</pre>
 
-</article></slide><slide class=""><hgroup><h2>Rapid prototyping with for loops</h2></hgroup><article  id="rapid-prototyping-with-for-loops" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Rapid prototyping with for loops</h2></hgroup><article  id="rapid-prototyping-with-for-loops">
 
 <p>Quickly go from</p>
 
@@ -3277,7 +3287,7 @@ done</pre>
 <li>using <code>nano</code> and the former to make the latter</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>For loops an parallelism?</h2></hgroup><article  id="for-loops-an-parallelism" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>For loops an parallelism?</h2></hgroup><article  id="for-loops-an-parallelism">
 
 <ul>
 <li>So, can we do more than one task at a time in a <code>for</code> loop with just <code>&amp;</code></li>
@@ -3286,7 +3296,7 @@ done</pre>
 
 <p>We’ll next make a safe &ldquo;something&rdquo; to do that we can test for loops and parallel execution without taxing our computers much</p>
 
-</article></slide><slide class=""><hgroup><h2>Making a safe thing for a for loop to &ldquo;do&rdquo;</h2></hgroup><article  id="making-a-safe-thing-for-a-for-loop-to-do" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Making a safe thing for a for loop to &ldquo;do&rdquo;</h2></hgroup><article  id="making-a-safe-thing-for-a-for-loop-to-do">
 
 <p>And let’s build a shell_script that just runs <code>sleep</code> to view how loops stack or don’t.</p>
 
@@ -3301,24 +3311,31 @@ sleep 1m</pre>
 
 <p>Don’t forget to <code>chmod +x sleepscript.sh</code></p>
 
-</article></slide><slide class=""><hgroup><h2>For loops on patterns of &ldquo;inputs&rdquo;</h2></hgroup><article  id="for-loops-on-patterns-of-inputs" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>For loops on patterns of &ldquo;inputs&rdquo;</h2></hgroup><article  id="for-loops-on-patterns-of-inputs">
 
 <p>Let’s prep a folder for the task with dummy input files</p>
 
 <pre class = 'prettyprint lang-bash'>touch A{A..M}_R{1,2}.fastq
 ls</pre>
 
-<p>then we build some for loops based off of the patterns and find two parallel problems (live demos) - demo 1. no backgrounding - demo 2. using <code>&amp;</code> inside the loop</p>
+<p>then we build some for loops based off of the patterns and find two parallel problems (live demos)</p>
 
-</article></slide><slide class=""><hgroup><h2>Loops with (iffy) parallel scheduling by polling</h2></hgroup><article  id="loops-with-iffy-parallel-scheduling-by-polling" class="smaller ">
+<ul>
+<li>demo 1. no backgrounding</li>
+<li>demo 2. using <code>&amp;</code> inside the loop. what happens?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Loops with (iffy) parallel scheduling by polling</h2></hgroup><article  id="loops-with-iffy-parallel-scheduling-by-polling">
 
 <ul>
 <li><a href='https://github.com/rltillett/scaling-up/blob/master/polling_interpro_loop.sh' title=''>An example from an interproscan script</a> I recently wrote &amp; used</li>
 <li>Let’s examine it</li>
+<li>the inner <code>while</code> loop is doing the heavy lifting here</li>
 <li>real schedulers (like HPC have) are preferable, but this kludge does and will work.</li>
+<li>let’s adapt it. (back to our terminals again)</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Staying connected w/ terminal multiplexer (tmux)</h2></hgroup><article  id="staying-connected-w-terminal-multiplexer-tmux" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Staying connected w/ terminal multiplexer (tmux)</h2></hgroup><article  id="staying-connected-w-terminal-multiplexer-tmux">
 
 <p>Before executing a script, invoke <code>tmux</code> to avoid hang ups killing your jobs</p>
 
@@ -3326,7 +3343,7 @@ ls</pre>
 some_script.sh
 # [log out by closing your terminal window, AND NOT by typing exit]</pre>
 
-</article></slide><slide class=""><hgroup><h2>More tmux usage</h2></hgroup><article  id="more-tmux-usage" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>More tmux usage</h2></hgroup><article  id="more-tmux-usage">
 
 <p>When you log back in</p>
 
@@ -3336,7 +3353,7 @@ some_script.sh
 <li>Use <code>tmux detach -t [Number]</code> to detach a session and make it evaporate</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Oh no, I forgot to tmux!</h2></hgroup><article  id="oh-no-i-forgot-to-tmux" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Oh no, I forgot to tmux!</h2></hgroup><article  id="oh-no-i-forgot-to-tmux">
 
 <p>No guarantees that the following will work, but it is worth a try if you haven’t lost connection yet.</p>
 
@@ -3347,7 +3364,7 @@ some_script.sh
 <li>Check if it was disowned with <code>jobs</code> and repeat <code>disown -h</code> as needed</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>(Repeat) Where to scale up?</h2></hgroup><article  id="repeat-where-to-scale-up" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>(Repeat) Where to scale up?</h2></hgroup><article  id="repeat-where-to-scale-up">
 
 <ul>
 <li>Your existing machine, just more efficiently?</li>
@@ -3357,14 +3374,14 @@ some_script.sh
 <li>Cloud services?</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Added issues on any new system</h2></hgroup><article  id="added-issues-on-any-new-system" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Added issues on any new system</h2></hgroup><article  id="added-issues-on-any-new-system">
 
 <ul>
 <li>Installing software</li>
 <li>Costs?</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Beefy workstations</h2></hgroup><article  id="beefy-workstations" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Beefy workstations</h2></hgroup><article  id="beefy-workstations">
 
 <ul>
 <li>Likely good RAM, disk, and OK CPU count
@@ -3378,7 +3395,7 @@ some_script.sh
 <li>Connectivity issues (either &ldquo;at all&rdquo; or off-campus access a challenge)</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>A department server</h2></hgroup><article  id="a-department-server" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>A department server</h2></hgroup><article  id="a-department-server">
 
 <ul>
 <li>You won’t get <code>sudo</code></li>
@@ -3386,7 +3403,7 @@ some_script.sh
 <li>Use <code>conda</code> always</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>HPC systems</h2></hgroup><article  id="hpc-systems" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>HPC systems</h2></hgroup><article  id="hpc-systems">
 
 <ul>
 <li>Systems like Pronghorn (UNR) &amp; XSEDE (NSF, must apply)</li>
@@ -3398,58 +3415,91 @@ some_script.sh
 <li>Use <code>conda</code> or containers</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>HPC systems</h2></hgroup><article  id="hpc-systems-1" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>HPC systems</h2></hgroup><article  id="hpc-systems-1">
 
 <ul>
 <li>A few looks at pronghorn and the SLURM job scheduler</li>
-<li></li>
+<li><a href='https://github.com/rltillett/scaling-up/blob/master/UNR%20HPC%20resources%20for%20life%20scientists.pdf' title=''>A different slideshow as pdf</a></li>
+<li>Q. What makes HPC different than other systems?
+
+<ul>
+<li>The job queue. Pronghorn’s is called SLURM</li>
+</ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Cloud computing</h2></hgroup><article  id="cloud-computing" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>HPC job queues</h2></hgroup><article  id="hpc-job-queues">
+
+<ul>
+<li><code>srun</code> and <code>sbatch</code> are how you ask permission to run things</li>
+<li>Two scripts to do the job of one (yeah, I know)</li>
+<li><a href='https://github.com/rltillett/scaling-up/blob/master/trimgalore_dir.sh' title=''>A launcher script</a></li>
+<li><a href='https://github.com/rltillett/scaling-up/blob/master/trimgalore_worker.sh' title=''>A worker script</a></li>
+<li>a look at pronghorn</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Cloud computing</h2></hgroup><article  id="cloud-computing">
 
 <ul>
 <li>Free ones
 
 <ul>
-<li>CyVerse (NSF)</li>
+<li><a href='' title=''>CyVerse Atmosphere, NSF</a></li>
 <li>Jetstream (NSF, must apply)</li>
 <li>Amazon AWS (free tier only)</li>
 </ul></li>
 <li><code>$$$</code> ones
 
 <ul>
-<li>Amazon AWS</li>
-<li>Google Cloud</li>
-<li>Others…</li>
+<li>Amazon AWS, Google Cloud, Others…</li>
 </ul></li>
 <li>You will get <code>sudo</code></li>
+<li>You essentially get a bunch of VMs</li>
 <li>Still, use <code>conda</code> or containers</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Workflow management systems</h2></hgroup><article  id="workflow-management-systems" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Workflow management systems</h2></hgroup><article  id="workflow-management-systems">
 
 <ul>
 <li>Makefiles
 
 <ul>
 <li>compact syntax may be difficult to mentally parse</li>
+<li><a href='http://www.bioinformaticszen.com/post/makefiles/' title=''>see this example</a></li>
 </ul></li>
-<li>Snakemake</li>
-<li>bcbio
+<li><a href='https://snakemake.readthedocs.io/en/stable/' title=''>Snakemake</a>
 
 <ul>
-<li>complexity</li>
+<li>Moving as much as I can into snakemake is my next major target.</li>
+</ul></li>
+<li><a href='https://bcbio-nextgen.readthedocs.io/en/latest/' title=''>bcbio</a>
+
+<ul>
+<li>Has a sense of complexity to it, but is interesting and looks powerful</li>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Containers</h2></hgroup><article  id="containers" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>Containers</h2></hgroup><article  id="containers">
 
 <ul>
-<li>Docker (Cloud)</li>
-<li>Singularity (Cloud &amp; Pronghorn)</li>
+<li>Docker (Cloud)
+
+<ul>
+<li>you must have root to build AND run docker images</li>
+<li>This is generally true on the cloud, though</li>
+<li>Many many images on <a href='https://hub.docker.com' title=''>DockerHub</a></li>
+</ul></li>
+<li>Singularity (Cloud &amp; Pronghorn)
+
+<ul>
+<li>root only needed for build and some subsystems</li>
+<li>Provided the subsystems, you can run anything. Custom or from <a href='https://singularity-hub.org' title=''>Singularity-Hub.org</a></li>
+</ul></li>
+<li>Orchestration of containers is Very High Level automation, and a bit out of our scope…</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Testing and Deploying</h2></hgroup><article  id="testing-and-deploying" class="smaller "></article></slide>
+</article></slide><slide class=""><hgroup><h2>Thank you</h2></hgroup><article  id="thank-you">
+
+<p>Questions?</p></article></slide>
 
 
   <slide class="backdrop"></slide>
